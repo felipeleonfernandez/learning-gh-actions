@@ -1,0 +1,12 @@
+name: 'Triggering - Run a workflow when other one runs'
+
+on:
+  workflow_run:
+    workflows: ["Simple workflow that runs on every push"]
+    types: [completed]
+
+jobs:
+  hello-world:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hello, World! I ran because a particular workflow was successfully executed"

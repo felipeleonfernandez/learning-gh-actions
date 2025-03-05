@@ -1,0 +1,65 @@
+##
+##  To test this workflow: 
+##  1. Run it
+##  2. The results should be different in each group
+##  2.1 In the first group, two jobs should be cancelled and one successfully executed
+##  2.2 In the second group, one job should be cancelled and the other two should be executed
+##  but not concurrently (while one of them is in progress the other one is queued)
+##  
+##  NOTES:
+##  - Concurrency in GH Actions only allow one job being executed and one being queued,
+##  the rest will be cancelled. 
+##  - The job groups work at workflow level (two different runs share the same groups)
+##
+
+name: "Concurrency - Maximum one job in two groups concurrently running"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  job-1:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: first-group
+      cancel-in-progress: true
+    steps:
+      - run: echo "${{ github.workflow }}-${{ github.ref }}"
+      - run: sleep 60s
+  job-2:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: first-group
+      cancel-in-progress: true
+    steps:
+      - run: echo "${{ github.workflow }}-${{ github.ref }}"
+      - run: sleep 60s
+  job-3:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: first-group
+      cancel-in-progress: true
+    steps:
+      - run: echo "${{ github.workflow }}-${{ github.ref }}"
+      - run: sleep 60s
+  job-4:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: second-group
+    steps:
+      - run: echo "${{ github.workflow }}-${{ github.ref }}"
+      - run: sleep 60s
+  job-5:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: second-group
+    steps:
+      - run: echo "${{ github.workflow }}-${{ github.ref }}"
+      - run: sleep 60s
+  job-6:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: second-group
+    steps:
+      - run: echo "${{ github.workflow }}-${{ github.ref }}"
+      - run: sleep 60s

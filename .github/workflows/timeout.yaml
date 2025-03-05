@@ -1,0 +1,37 @@
+##
+##  To test this workflow: 
+##  1. Run it
+##  2. The first job will succeed (execution time < timeout) 
+##  3. The second job will fail (execution time < timeout)
+##
+
+name: "Timeout - Stop job or step run if some time passes"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  success-job:
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+      - run: echo "I'm gonna success"
+      - run: sleep 30s
+  fail-job:
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+      - run: echo "I'm gonna fail"
+      - run: sleep 180s
+  success-step-job:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "I'm gonna success"
+      - run: sleep 30s
+        timeout-minutes: 1
+  fail-step-job:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "I'm gonna fail"
+      - run: sleep 180s
+        timeout-minutes: 1
