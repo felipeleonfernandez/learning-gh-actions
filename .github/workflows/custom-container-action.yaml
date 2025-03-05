@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Using custom container action
         id: greeting-message
-        uses: felipe-leon-NTT/testing-custom-container-action@main
+        uses: felipeleonfernandez/simple-custom-container-action@main
         with:
           name: Felipe
       - run: echo ${{ steps.greeting-message.outputs.msg }}
