@@ -1,0 +1,25 @@
+name: Run on New Tag Push
+
+on:
+  push:
+    tags:
+      - 'v*'  # Triggers when a tag starting with 'v' is pushed (e.g., v1.0.0)
+
+jobs:
+  on-tag-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Display Tag Info
+        run: echo "Tag ${{ github.ref }} has been pushed!"
+
+      - name: Run Build (Example)
+        run: echo "Building project..."
+
+      - name: Run Tests (Example)
+        run: echo "Running tests..."
+
+      - name: Deploy (Example)
+        run: echo "Deploying new release..."
